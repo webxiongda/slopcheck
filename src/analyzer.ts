@@ -68,10 +68,11 @@ function calcReadability(text: string): number {
 }
 
 // 结合命中权重和密度算 0-100 分，短文本设下限防止密度爆炸
-function calcScore(matches: Match[], tokens: number): number {
+// 严格模式提高密度系数，让轻度模板痕迹也反映到分数上
+function calcScore(matches: Match[], tokens: number, strict = false): number {
   const weighted = matches.reduce((sum, m) => sum + m.weight, 0)
   const density = weighted / Math.max(tokens, 24)
-  let score = Math.round(density * 132)
+  let score = Math.round(density * (strict ? 168 : 132))
   if (matches.length > 0) score = Math.max(score, 14)
   return Math.max(0, Math.min(100, score))
 }
@@ -101,18 +102,18 @@ function rewrite(text: string, matches: Match[]): string {
   return out
 }
 
-export function analyze(text: string): AnalysisResult {
+export function analyze(text: string, strict = false): AnalysisResult {
   const candidates: Match[] = []
   for (const rule of RULES) {
     const found = collect(rule, text)
-    // 例如连接词需要出现两次以上才算「堆叠」
-    if (rule.minCount && found.length < rule.minCount) continue
+    // 严格模式下忽略 minCount 门槛，单次出现的连接词也计入
+    if (!strict && rule.minCount && found.length < rule.minCount) continue
     candidates.push(...found)
   }
 
   const matches = dedupe(candidates)
   const wordCount = countTokens(text)
-  const score = calcScore(matches, wordCount)
+  const score = calcScore(matches, wordCount, strict)
 
   return {
     score,
