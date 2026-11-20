@@ -43,6 +43,8 @@ The goal is editing, not judging. The 0–100 score is a rough signal, not a ver
 | Before/after & share card | Compare original and rewritten text side by side, or copy a text card with the score and top 3 hits. |
 | Bilingual coverage | Catches both English filler ("delve into", "in order to") and Chinese jargon (赋能, 底层逻辑, 颗粒度). |
 
+**🔗 Live demo:** https://webxiongda.github.io/slopcheck/
+
 ## Quick Start
 
 ```bash

@@ -43,6 +43,8 @@ AI 辅助写作有一种能听出来的腔调。它偏爱 *delve into*、*seamle
 | 改写对照与分享卡 | 并排查看原文与去味结果，或复制包含分数和 Top 3 命中的纯文本卡片。 |
 | 中英双语覆盖 | 既抓英文填充词（"delve into"、"in order to"），也抓中文黑话（赋能、底层逻辑、颗粒度）。 |
 
+**🔗 在线预览：** https://webxiongda.github.io/slopcheck/
+
 ## 快速开始
 
 ```bash
