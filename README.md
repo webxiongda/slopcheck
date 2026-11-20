@@ -51,7 +51,7 @@ cd slopcheck
 npm install && npm run dev
 ```
 
-Open `http://localhost:5173` and paste text into the workbench — analysis starts as you type. For a static build, run `npm run build` followed by `npm run preview`.
+Open `http://localhost:5173` and paste text into the workbench — analysis starts as you type. For a static build, run `npm run build` followed by `npm run preview`. Run the test suite with `npm test`.
 
 ## Pages
 

@@ -51,7 +51,7 @@ cd slopcheck
 npm install && npm run dev
 ```
 
-打开 `http://localhost:5173`，把文本粘贴到工作台即可 —— 输入时就会自动分析。需要静态构建时，依次运行 `npm run build` 和 `npm run preview`。
+打开 `http://localhost:5173`，把文本粘贴到工作台即可 —— 输入时就会自动分析。需要静态构建时，依次运行 `npm run build` 和 `npm run preview`。测试运行 `npm test`。
 
 ## 页面
 
