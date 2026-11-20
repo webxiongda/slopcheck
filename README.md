@@ -1,56 +1,101 @@
-# SlopCheck · AI 味检测器
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-ff4757.svg)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/slopcheck/slopcheck?style=flat&color=ff9f43)](https://github.com/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-2ed573.svg)](https://github.com/)
+[English](README.md) | [中文](README-zh.md)
+
+🧹
+
+# SlopCheck
+
+**Find the AI-ness in your writing — in your browser, in real time, without sending a single character anywhere.**
+
+[![Stars](https://img.shields.io/github/stars/webxiongda/slopcheck?style=flat&color=ff9f43)](https://github.com/webxiongda/slopcheck)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2ed573.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-2ed573.svg)](https://github.com/webxiongda/slopcheck/pulls)
 [![Made with React](https://img.shields.io/badge/Made%20with-React-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)](https://www.typescriptlang.org/)
 
-> 把「赋能、抓手、闭环、delve into、not just … but …」揪出来，给你的文字测一测 AI 味指数。
+</div>
 
-粘贴一段文案或代码，SlopCheck 会在浏览器本地用纯正则与词表检测陈词滥调、模板句式、中文黑话、Emoji 滥用和填充冗余，给出 **0–100 的 AI 味指数**、逐条命中与朴素改法，并支持一键去味和生成分享卡。**文本不会离开你的设备。**
+<div align="center">
+  <img src="assets/screenshot.png" alt="SlopCheck workbench: AI-ness score, category-colored highlights, and rewrite preview" width="800" />
+</div>
 
-## ✨ 特性
+## Why SlopCheck?
 
-- **实时检测**：输入即分析，环形仪表盘显示 AI 味指数（严重 / 中等 / 轻微 / 清爽）。
-- **规则库零依赖**：全部是 TypeScript 正则与词表，不调用任何模型或接口。
-- **中英双语**：覆盖 `delve into`、`seamless landing`、`it's worth noting`，以及「赋能 / 抓手 / 闭环 / 底层逻辑 / 生态位」等中文黑话。
-- **五种命中类别**：英文陈词、句式套路、中文黑话、Emoji 滥用、填充冗余，按类别着色高亮原文。
-- **可落地的建议**：每条命中都附带原因与更朴素的替代表达。
-- **一键去味**：自动把陈词与冗余短语替换成日常说法，右侧直接预览、一键复制。
-- **分享卡**：分数 + Top3 命中生成纯文本卡片，方便发到群聊或 issue。
-- **统计条**：检测词数、命中数、可读性评分一目了然。
-- **精致 UI**：深色玻璃拟态、渐变霓虹强调色、微动效、响应式布局。
+AI-assisted writing has a recognizable accent. It reaches for *delve into*, *seamless*, *it's worth noting*, and *not just X, but Y*; in Chinese it leans on 赋能 / 抓手 / 闭环. None of these words are wrong on their own, but together they make prose feel generated — polished, generic, and oddly bloodless. The reaction is visible in the tooling landscape: anti-slop projects such as impeccable (+15.2k/mo), unslop (+15.1k/mo), and hallmark (+14.1k/mo) have surged at the same time, which says people want a fast way to spot and strip out these tells.
 
-## 🚀 快速开始
+Most detectors are either cloud services that upload the very text you are uneasy about, or black-box scores with no explanation of what went wrong. SlopCheck takes the opposite route: a fully local, zero-dependency rule engine that shows exactly which phrase triggered a hit, why it reads as templated, and what plainer wording would work instead.
+
+The goal is editing, not judging. The 0–100 score is a rough signal, not a verdict; the evidence is highlighted in place; and the final decision always stays with you. No account, no API key, no network request — just your text and a set of rules you can read and extend.
+
+## Features
+
+| Feature | Description |
+| --- | --- |
+| Local & private | Everything runs in the browser. No model calls, no backend, no telemetry — text never leaves your device. |
+| 0–100 AI-ness score | Weighted-density scoring with four bands (clean / mild / medium / severe) and an SVG gauge. |
+| Five match categories | English clichés, formulaic patterns, Chinese buzzwords, emoji abuse, and filler — color-coded inline. |
+| Zero-dependency rules | 66 plain TypeScript regex + wordlist rules; no runtime dependency beyond React and React DOM. |
+| Actionable suggestions | Every hit explains itself and offers a plainer substitute; most can be applied with one click. |
+| One-click de-slop | Auto-rewrite replaces clichés and filler, capitalizes sentence starts, and copies the result. |
+| Strict mode | Drops the repetition threshold for discourse markers and raises the density factor for formal copy. |
+| Batch detection | Paste multiple blocks, sort by score / hits / readability, and export results to CSV. |
+| Before/after & share card | Compare original and rewritten text side by side, or copy a text card with the score and top 3 hits. |
+| Bilingual coverage | Catches both English filler ("delve into", "in order to") and Chinese jargon (赋能, 底层逻辑, 颗粒度). |
+
+## Quick Start
 
 ```bash
-npm install
-npm run dev
+git clone https://github.com/webxiongda/slopcheck.git
+cd slopcheck
+npm install && npm run dev
 ```
 
-打开终端提示的地址（默认 `http://localhost:5173`）即可使用。生产构建：
+Open `http://localhost:5173` and paste text into the workbench — analysis starts as you type. For a static build, run `npm run build` followed by `npm run preview`.
 
-```bash
-npm run build
-npm run preview
-```
+## Pages
 
-## 🎮 核心玩法
+The app uses hash routing, so every page is linkable and works when embedded in an iframe.
 
-1. 点击顶部三个示例按钮之一，或直接粘贴自己的文案 / 代码。
-2. 右侧仪表盘给出 AI 味指数，红橙配色越高越「AI」。
-3. 在「命中明细」里按类别筛选，查看命中文本、原因和建议改法。
-4. 「原文高亮」里颜色对应的片段就是问题所在，鼠标悬停可看原因。
-5. 点「复制改写」拿走一键去味后的朴素版本。
-6. 点「复制卡片」把分数与 Top3 命中分享出去。
+| Hash | Page | What it does |
+| --- | --- | --- |
+| `#/analyze` | Analysis workbench | Paste text, see the live score, filter hits by category, rewrite, and copy a share card. |
+| `#/rules` | Rule browser | Search and filter all 66 rules by pattern, reason, or suggested fix. |
+| `#/history` | Detection history | Review local records and reload any entry back into the workbench. |
+| `#/compare` | Before / after | Inspect original and de-slopped text side by side with the score delta. |
+| `#/batch` | Batch detection | Split input on `---`, sort the result table, and export CSV. |
+| `#/examples` | Examples & favorites | Try three built-in samples or keep your own locally saved favorites. |
+| `#/stats` | Statistics | SVG gauge, bar, pie, and line charts over detection history. |
+| `#/guide` | Guide | Four-step walkthrough, five categories, and the score bands explained. |
+| `#/about` | About & trends | Why de-slopping matters, the evidence behind it, and project links. |
+| `#/settings` | Settings | Toggle auto-save, highlighting, and strict mode; manage local data. |
 
-想扩展词表？直接编辑 [`src/rules.ts`](src/rules.ts)：每条规则声明 `category / source / flags / reason / suggestion / replacement`，可选 `minCount` 用于「连接词堆叠」这类需要多次出现才生效的规则。
+## How it works
 
-## 📸 截图占位区
+Each rule in [`src/rules.ts`](src/rules.ts) declares a `source` regex, `flags`, a `category`, and a plain-language `reason` / `suggestion` (plus an optional `replacement` and `minCount`). The analyzer compiles a fresh `RegExp` per rule to avoid shared `lastIndex` state, then runs overlap dedup so a span is never scored twice — at the same start position, the longer match wins. The score is a weighted density: the sum of category weights (pattern 6, emoji 4, cliché/chinese 3, filler 2) divided by the token count with a floor of 24, scaled by 132 (or 168 in strict mode), and clamped to 0–100 with thresholds at 15, 40, and 70. De-slopping applies replacements back-to-front so earlier offsets stay valid, capitalizing at sentence starts. Charts are hand-drawn SVG; state is persisted in `localStorage` with a `JSON.parse` fallback so a corrupted value can never blank the app.
 
-> 后续在此放置主界面截图（`docs/screenshot-main.png`）与命中高亮特写（`docs/screenshot-hits.png`）。
+## Tech Stack
 
-## 📄 License
+React 18 and TypeScript in strict mode, built with Vite. The rule engine has **zero extra runtime dependencies** — just regular expressions and wordlists. Routing is a small hash router; charts are hand-written SVG; persistence is `localStorage`. React and React DOM are the only runtime packages.
 
-[MIT](LICENSE) © SlopCheck contributors
+## Documentation
+
+- [中文文档](README-zh.md) — full Chinese translation of this guide.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — how to run locally and send a pull request.
+- [LICENSE](LICENSE) — MIT.
+
+## Contributing
+
+Pull requests are welcome, especially additions to the rule tables. Rules live in a single file, so a good first contribution is a new cliché, a Chinese buzzword with a natural replacement, or a clearer suggestion for an existing hit. Other useful work: edge cases in overlap dedup, more readable SVG charts, and documentation improvements. Please keep changes small and focused, and open an issue first for larger refactors. See [CONTRIBUTING.md](CONTRIBUTING.md) for conventions.
+
+## Roadmap
+
+- [ ] Expand the wordlists to cover more genres (academic, marketing, product copy).
+- [ ] Add optional per-category sensitivity controls in Settings.
+- [ ] Add import / export of rules and favorites as JSON.
+- [ ] Improve readability heuristics beyond average sentence length.
+- [ ] Add a small test suite for analyzer edge cases.
+
+## License
+
+[MIT](LICENSE) © SlopCheck contributors.
