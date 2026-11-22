@@ -4,7 +4,9 @@
 
 🧹
 
-# SlopCheck
+# SlopCheck — AI Text Detector for English & Chinese
+
+▶ **[Try it live](https://webxiongda.github.io/slopcheck/)** — no install, runs in your browser.
 
 **Find the AI-ness in your writing — in your browser, in real time, without sending a single character anywhere.**
 

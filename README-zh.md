@@ -4,7 +4,9 @@
 
 🧹
 
-# SlopCheck
+# SlopCheck — 中英文 AI 味检测器
+
+▶ **[在线体验](https://webxiongda.github.io/slopcheck/)** — 无需安装，直接在浏览器里运行。
 
 **在你的浏览器里实时揪出文字的 AI 味 —— 一个字符都不会被发送出去。**
 
